@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_AUTH_PROV_OAUTH2_TOKEN">
+    <table name="C_AUTH_PROV_OAUTH2_TOKEN" primaryKey="C_AUTH_PROV_OAUTH2_TOKEN_KEY">
+      <column name="C_AUTH_PROV_OAUTH2_TOKEN_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_AUTH_PROVIDER_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="JWKS_URL" primaryKey="false" required="true" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="TOKEN_PROPERTY" primaryKey="false" required="true" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="C_AUTH_PROV_OAUTH2_TOKEN_CLI">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_AUTH_PROV_OAUTH2_TOKEN_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_AUTH_PROVIDER" name="C_AUTH_PROV_OAUTH2_TOKEN_PROV">
+        <reference local="C_AUTH_PROVIDER_ID" foreign="C_AUTH_PROVIDER_ID"/>
+      </foreign-key>
+      <index name="C_AUTH_PROV_OAUTH2_TOKEN_PR" unique="false">
+        <index-column name="C_AUTH_PROVIDER_ID"/>
+      </index>
+      <index name="C_AUTH_PROV_OAUTH2_TOKEN_UN_PR" unique="true">
+        <index-column name="C_AUTH_PROVIDER_ID"/>
+        <index-column name="ISACTIVE"/>
+        <whereClause><![CDATA[ISACTIVE='Y']]></whereClause>
+      </index>
+      <check name="C_AUTH_PROV_OAUTH2_TOKEN_CHCK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

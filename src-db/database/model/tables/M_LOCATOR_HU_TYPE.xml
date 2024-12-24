@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+  <database name="TABLE M_LOCATOR_HU_TYPE">
+    <table name="M_LOCATOR_HU_TYPE" primaryKey="M_LOCATOR_HU_TYPE_KEY">
+      <column name="M_LOCATOR_HU_TYPE_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DESCRIPTION" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_LOCATOR_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_REFINVENTORY_TYPE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="M_LOCATOR_HU_TYPE_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_LOCATOR" name="M_LOCATOR_HU_TYPE_LOCATOR" onDelete="cascade">
+        <reference local="M_LOCATOR_ID" foreign="M_LOCATOR_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="M_LOCATOR_HU_TYPE_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_REFINVENTORY_TYPE" name="M_LOCATOR_HU_TYPE_REFINVTYPE" onDelete="cascade">
+        <reference local="M_REFINVENTORY_TYPE_ID" foreign="M_REFINVENTORY_TYPE_ID"/>
+      </foreign-key>
+      <index name="M_LOCATOR_HU_TYPE_LOC_IDX" unique="false">
+        <index-column name="M_LOCATOR_ID"/>
+      </index>
+      <unique name="M_LOCATOR_HU_TYPE_LOCRITYPE_UN">
+        <unique-column name="M_LOCATOR_ID"/>
+        <unique-column name="M_REFINVENTORY_TYPE_ID"/>
+      </unique>
+      <check name="M_LOCATOR_HU_TYPE_ISACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

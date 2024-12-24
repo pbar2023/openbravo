@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER M_OFFER_TYPE_TRG">
+    <trigger name="M_OFFER_TYPE_TRG" table="M_OFFER_TYPE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+/*************************************************************************
+* The contents of this file are subject to the Compiere Public
+* License 1.1 ("License"); You may not use this file except in
+* compliance with the License. You may obtain a copy of the License in
+* the legal folder of your Openbravo installation.
+* Software distributed under the License is distributed on an
+* "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+* implied. See the License for the specific language governing rights
+* and limitations under the License.
+* The Original Code is  Compiere  ERP &  Business Solution
+* The Initial Developer of the Original Code is Jorg Janke and ComPiere, Inc.
+* Portions created by Jorg Janke are Copyright (C) 1999-2001 Jorg Janke,
+* parts created by ComPiere are Copyright (C) ComPiere, Inc.;
+* All Rights Reserved.
+* Contributor(s): Openbravo SLU
+* Contributions are Copyright (C) 2023 Openbravo, S.L.U.
+*
+* Specifically, this derivative work is based upon the following Compiere
+* file and version.
+*************************************************************************
+* $Id: M_Offer_Type.Trg,v 1.2 2002/05/11 04:32:33 jjanke Exp $
+***
+* Title: Discount Type searchkey
+* Description:
+************************************************************************/
+ v_aux NUMBER;
+
+BEGIN
+
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+  IF :new.AD_Module_ID != '0' AND :new.value!= '' THEN
+    SELECT COUNT(*)
+      INTO v_Aux
+      FROM AD_MODULE_DBPREFIX
+     WHERE AD_MODULE_ID = :new.AD_Module_ID
+       AND (instr(upper(:new.value), upper(name)||'_') = 1
+          OR instr(upper(:new.value), 'EM_'||upper(name)||'_') = 1);
+    IF v_Aux = 0 THEN
+      RAISE_APPLICATION_ERROR(-20000, '@20536@') ;
+    END IF;
+  END IF;
+   END M_OFFER_TYPE_TRG
+]]></body>
+    </trigger>
+  </database>

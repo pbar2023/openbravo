@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_AUTH_PROVIDER">
+    <table name="C_AUTH_PROVIDER" primaryKey="C_AUTH_PROVIDER_KEY">
+      <column name="C_AUTH_PROVIDER_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="TYPE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DESCRIPTION" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_IMAGE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_APPLICATION_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default><![CDATA[85A6864E67B3427C9DEA981AAE11B306]]></default>
+        <onCreateDefault><![CDATA['85A6864E67B3427C9DEA981AAE11B306']]></onCreateDefault>
+      </column>
+      <column name="FLOW" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[LOGIN]]></default>
+        <onCreateDefault><![CDATA['LOGIN']]></onCreateDefault>
+      </column>
+      <foreign-key foreignTable="AD_APPLICATION" name="C_AUTH_PROVIDER_AD_APP_ID">
+        <reference local="AD_APPLICATION_ID" foreign="AD_APPLICATION_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="C_AUTH_PROVIDER_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_IMAGE" name="C_AUTH_PROVIDER_AD_IMAGE">
+        <reference local="AD_IMAGE_ID" foreign="AD_IMAGE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_AUTH_PROVIDER_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <unique name="C_AUTH_PROVIDER_UNIQUE_NAME">
+        <unique-column name="NAME"/>
+      </unique>
+      <check name="C_AUTH_PROVIDER_ISACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

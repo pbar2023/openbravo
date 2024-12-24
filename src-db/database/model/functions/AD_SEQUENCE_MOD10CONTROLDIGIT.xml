@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION AD_SEQUENCE_MOD10CONTROLDIGIT">
+    <function name="AD_SEQUENCE_MOD10CONTROLDIGIT" type="NUMERIC" volatility="IMMUTABLE">
+      <parameter name="p_documentno" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+  * The contents of this file are subject to the Openbravo  Public  License
+  * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+  * Version 1.1  with a permitted attribution clause; you may not  use this
+  * file except in compliance with the License. You  may  obtain  a copy of
+  * the License at http://www.openbravo.com/legal/license.html
+  * Software distributed under the License  is  distributed  on  an "AS IS"
+  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  * License for the specific  language  governing  rights  and  limitations
+  * under the License.
+  * The Original Code is Openbravo ERP.
+  * The Initial Developer of the Original Code is Openbravo SLU
+  * All portions are Copyright (C) 2024 Openbravo SLU
+  * All Rights Reserved.
+  * Contributor(s): Openbravo SLU
+  * Title: Gets the control digit for the sequence based on Mod10 Algorithm
+  * Description: This implements the Module 10 Control Digit algorithm to
+  * compute the control digit for the sequence
+************************************************************************/
+  v_sum NUMBER:=0;
+  v_sequence VARCHAR2(60);
+  v_digit NUMBER;
+BEGIN
+  -- Is DocumentNo NULL OR EMPTY OR ALPHANUMERIC
+  IF(TO_NUMBER(p_DocumentNo) IS NULL) THEN
+    RAISE_APPLICATION_ERROR(-20000, '@ValidateSequenceForControlDigit@') ;
+  END IF;
+
+  v_sequence:=REVERSE(p_DocumentNo);
+  FOR i IN 1..LENGTH(v_sequence) LOOP
+    v_digit := TO_NUMBER(SUBSTRING(v_sequence FROM i FOR 1));
+    IF (i%2) = 1 THEN
+      v_sum = v_sum + v_digit*3;
+    ELSE
+      v_sum = v_sum + v_digit;
+    END IF;
+  END LOOP;
+  RETURN (10 - (v_sum % 10)) % 10;
+END AD_SEQUENCE_MOD10CONTROLDIGIT
+]]></body>
+    </function>
+  </database>

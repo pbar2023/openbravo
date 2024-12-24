@@ -1,0 +1,8 @@
+{
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "jest/no-conditional-expect": "off",
+    "no-use-before-define": ["error", "nofunc"]
+  }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER AD_PROTOCOL_TRG_CHECKPREFIX">
+    <trigger name="AD_PROTOCOL_TRG_CHECKPREFIX" table="AD_PROTOCOL" fires="after" insert="true" update="true" delete="false" foreach="row">
+      <body><![CDATA[
+/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2023 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+ v_aux NUMBER;
+    
+BEGIN
+    
+    IF AD_isTriggerEnabled()='N' THEN RETURN;
+    END IF;
+
+  IF :new.AD_Module_ID != '0' THEN
+    SELECT COUNT(*)
+      INTO v_Aux
+      FROM AD_MODULE_DBPREFIX
+     WHERE AD_MODULE_ID = :new.AD_Module_ID
+       AND (instr(upper(:new.value), upper(name)||'_') = 1
+          OR instr(upper(:new.value), 'EM_'||upper(name)||'_') = 1);
+    
+    IF v_Aux = 0 THEN
+      RAISE_APPLICATION_ERROR(-20000, '@20536@') ;
+    END IF;
+  END IF;
+  -- Updating
+END AD_PROTOCOL_TRG_CHECKPREFIX
+]]></body>
+    </trigger>
+  </database>

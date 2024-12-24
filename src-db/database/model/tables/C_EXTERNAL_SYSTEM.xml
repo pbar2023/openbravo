@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_EXTERNAL_SYSTEM">
+    <table name="C_EXTERNAL_SYSTEM" primaryKey="C_EXTERNAL_SYSTEM_KEY">
+      <column name="C_EXTERNAL_SYSTEM_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="DESCRIPTION" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CONNECTIVITY_PROCESS" primaryKey="false" required="false" type="VARCHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_PROTOCOL_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default><![CDATA[36ADC30F67164F119013515280D82C01]]></default>
+        <onCreateDefault><![CDATA['36ADC30F67164F119013515280D82C01']]></onCreateDefault>
+      </column>
+      <column name="VALUE" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="C_EXTERNAL_SYSTEM_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_EXTERNAL_SYSTEM_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_PROTOCOL" name="C_EXTERNAL_SYSTEM_AD_PROTOCOL">
+        <reference local="AD_PROTOCOL_ID" foreign="AD_PROTOCOL_ID"/>
+      </foreign-key>
+      <unique name="C_EXTERNAL_SYSTEM_VALUE_UNIQ">
+        <unique-column name="VALUE"/>
+        <unique-column name="AD_CLIENT_ID"/>
+      </unique>
+      <check name="C_EXTERNAL_SYSTEM_ACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

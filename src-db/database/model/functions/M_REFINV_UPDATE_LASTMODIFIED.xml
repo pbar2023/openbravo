@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION M_REFINV_UPDATE_LASTMODIFIED">
+    <function name="M_REFINV_UPDATE_LASTMODIFIED" type="NULL">
+      <parameter name="p_ep_instance" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+  * The contents of this file are subject to the Openbravo  Public  License
+  * Version  1.0  (the  "License"),  being   the  Mozilla   Public  License
+  * Version 1.1  with a permitted attribution clause; you may not  use this
+  * file except in compliance with the License. You  may  obtain  a copy of
+  * the License at http://www.openbravo.com/legal/license.html
+  * Software distributed under the License  is  distributed  on  an "AS IS"
+  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  * License for the specific  language  governing  rights  and  limitations
+  * under the License.
+  * The Original Code is Openbravo ERP.
+  * The Initial Developer of the Original Code is Openbravo SLU
+  * All portions are Copyright (C) 2024 Openbravo SLU
+  * All Rights Reserved.
+  * Contributor(s): Openbravo SLU
+  * Title: Update last modified date and user of Referenced Inventory
+  * Description: This extension point is executed after posting Goods
+  * Movement to update the last modified information i.e updatedby and
+  * updated of the referenced inventory when box/unbox transaction is
+  * being done.
+************************************************************************/
+p_record_id VARCHAR(60);
+p_user VARCHAR(60);
+
+TYPE RECORD IS REF CURSOR;
+Cur_Params RECORD;
+Cur_REFERENCEDINVENTORY RECORD;
+
+BEGIN
+  FOR Cur_Params IN (
+    SELECT *
+	  FROM ad_ep_instance_para
+	  WHERE ad_ep_instance_id = p_ep_instance
+  ) LOOP
+    IF (cur_params.parametername LIKE 'Record_ID') THEN
+	  p_record_id := cur_params.p_string;
+	ELSIF (cur_params.parametername LIKE 'User') THEN
+	  p_user := cur_params.p_string;
+	END IF;
+  END LOOP;
+
+  FOR Cur_REFERENCEDINVENTORY IN (
+	SELECT DISTINCT M_ATTRIBUTESETINSTANCE.M_REFINVENTORY_ID
+	  FROM M_MOVEMENTLINE
+	  JOIN M_ATTRIBUTESETINSTANCE ON
+	  M_ATTRIBUTESETINSTANCE.M_ATTRIBUTESETINSTANCE_ID = COALESCE(M_MOVEMENTLINE.M_ATTRIBUTESETINSTANCETO_ID, M_MOVEMENTLINE.M_ATTRIBUTESETINSTANCE_ID, '0')
+	WHERE M_MOVEMENTLINE.M_MOVEMENT_ID = p_record_id
+	  AND M_ATTRIBUTESETINSTANCE.M_REFINVENTORY_ID IS NOT NULL
+  ) LOOP
+    UPDATE M_REFINVENTORY
+      SET UPDATEDBY = p_user,
+      UPDATED = now()
+    WHERE M_REFINVENTORY_ID = Cur_REFERENCEDINVENTORY.M_REFINVENTORY_ID;
+  END LOOP;
+END M_REFINV_UPDATE_LASTMODIFIED
+]]></body>
+    </function>
+  </database>

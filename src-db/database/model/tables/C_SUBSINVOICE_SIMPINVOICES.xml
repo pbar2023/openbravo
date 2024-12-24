@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_SUBSINVOICE_SIMPINVOICES">
+    <table name="C_SUBSINVOICE_SIMPINVOICES" primaryKey="C_SUBSINVOICE_SIMPINVOICES_KEY">
+      <column name="C_SUBSINVOICE_SIMPINVOICES_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_INVOICE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="INVOICE_DATE" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_SUBSTITUTIVEINVOICE_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="C_SI_SIMPINV_S_FK_AD_CLIENT_ID">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_SUBSTITUTIVEINVOICE" name="C_SI_SIMPIS_C_SUBINVOICE">
+        <reference local="C_SUBSTITUTIVEINVOICE_ID" foreign="C_SUBSTITUTIVEINVOICE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_SI_SIMPIS_S_FK_AD_ORG_ID">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_INVOICE" name="C_SI_SIMPIS_S_FK_C_INVOICE_ID">
+        <reference local="C_INVOICE_ID" foreign="C_INVOICE_ID"/>
+      </foreign-key>
+      <index name="C_SUBSI_SIMPINVS_C_SUBSINV_IDX" unique="false">
+        <index-column name="C_SUBSTITUTIVEINVOICE_ID"/>
+      </index>
+    </table>
+  </database>

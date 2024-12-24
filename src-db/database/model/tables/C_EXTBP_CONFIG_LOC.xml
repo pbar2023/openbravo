@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_EXTBP_CONFIG_LOC">
+    <table name="C_EXTBP_CONFIG_LOC" primaryKey="C_EXTBP_CONFIG_LOC_KEY">
+      <column name="C_EXTBP_CONFIG_LOC_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_EXTBP_CONFIG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="NAME" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS1" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ADDRESS2" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CITY" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="POSTAL" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="COUNTRY" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="REGION" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISBILLTO" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISSHIPTO" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISSHIPPING_ADDRESS" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISINVOICE_ADDRESS" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDEFAULT_SHIPPING_ADDRESS" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDEFAULT_INVOICE_ADDRESS" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_ADD1">
+        <reference local="ADDRESS1" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_ADD2">
+        <reference local="ADDRESS2" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_CITY">
+        <reference local="CITY" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG" name="C_EXTBP_CONF_LOC_CONF">
+        <reference local="C_EXTBP_CONFIG_ID" foreign="C_EXTBP_CONFIG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_COUNTRY">
+        <reference local="COUNTRY" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_ISDEF_INV">
+        <reference local="ISDEFAULT_INVOICE_ADDRESS" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_ISDEF_SHIP">
+        <reference local="ISDEFAULT_SHIPPING_ADDRESS" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_ISINVOICE">
+        <reference local="ISINVOICE_ADDRESS" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_ISSHIPPING">
+        <reference local="ISSHIPPING_ADDRESS" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_POSTAL">
+        <reference local="POSTAL" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_PROPERTY" name="C_EXTBP_CONF_LOC_REGION">
+        <reference local="REGION" foreign="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="C_EXTBP_LOC_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_EXTBP_LOC_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <unique name="C_EXTBPCONFLOC_NAME_UN">
+        <unique-column name="C_EXTBP_CONFIG_ID"/>
+        <unique-column name="NAME"/>
+      </unique>
+      <check name="C_EXTBP_CONF_LOC_ISACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBP_CONF_LOC_ISBILLTO_CHK"><![CDATA[ISBILLTO IN ('Y', 'N')]]></check>
+      <check name="C_EXTBP_CONF_LOC_ISSHIPTO_CHK"><![CDATA[ISSHIPTO IN ('Y', 'N')]]></check>
+    </table>
+  </database>

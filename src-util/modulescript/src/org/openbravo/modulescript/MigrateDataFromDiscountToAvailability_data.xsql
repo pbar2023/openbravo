@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *************************************************************************
+ * The contents of this file are subject to the Openbravo  Public  License
+ * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+ * Version 1.1  with a permitted attribution clause; you may not  use this
+ * file except in compliance with the License. You  may  obtain  a copy of
+ * the License at http://www.openbravo.com/legal/license.html
+ * Software distributed under the License  is  distributed  on  an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific  language  governing  rights  and  limitations
+ * under the License.
+ * The Original Code is Openbravo ERP.
+ * The Initial Developer of the Original Code is Openbravo SLU
+ * All portions are Copyright (C) 2022 Openbravo SLU
+ * All Rights Reserved.
+ * Contributor(s):  ______________________________________.
+ ************************************************************************
+-->
+<SqlClass name="MigrateDataFromDiscountToAvailabilityData" package="org.openbravo.modulescript">
+   <SqlClassComment></SqlClassComment>
+   <SqlMethod name="select" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql><![CDATA[
+      		SELECT m_offer_id, ad_client_id, ad_org_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday, allweekdays, '' as exist,
+			to_char(startingtime, 'DD-MM-YYYY HH24:MI:SS') startingtime,
+			to_char(endingtime, 'DD-MM-YYYY HH24:MI:SS')as endingtime,
+			to_char(startingtimemonday, 'DD-MM-YYYY HH24:MI:SS') as startingtimemonday,
+			to_char(startingtimetuesday, 'DD-MM-YYYY HH24:MI:SS') as startingtimetuesday,
+			to_char(startingtimewednesday, 'DD-MM-YYYY HH24:MI:SS') as startingtimewednesday,
+			to_char(startingtimethursday, 'DD-MM-YYYY HH24:MI:SS') as startingtimethursday,
+			to_char(startingtimefriday, 'DD-MM-YYYY HH24:MI:SS') as startingtimefriday,
+			to_char(startingtimesaturday, 'DD-MM-YYYY HH24:MI:SS') as startingtimesaturday,
+			to_char(startingtimesunday, 'DD-MM-YYYY HH24:MI:SS') as startingtimesunday,
+			to_char(endingtimemonday, 'DD-MM-YYYY HH24:MI:SS') as endingtimemonday,
+			to_char(endingtimetuesday, 'DD-MM-YYYY HH24:MI:SS') as endingtimetuesday,
+			to_char(endingtimewednesday, 'DD-MM-YYYY HH24:MI:SS') as endingtimewednesday,
+			to_char(endingtimethursday, 'DD-MM-YYYY HH24:MI:SS') as endingtimethursday,
+			to_char(endingtimefriday, 'DD-MM-YYYY HH24:MI:SS') as endingtimefriday,
+			to_char(endingtimesaturday, 'DD-MM-YYYY HH24:MI:SS') as endingtimesaturday,
+			to_char(endingtimesunday, 'DD-MM-YYYY HH24:MI:SS') as endingtimesunday
+			FROM m_offer
+      ]]>
+    </Sql>
+   </SqlMethod>
+  <SqlMethod name="isDataInOfferAvailabilityTableInserted" type="preparedStatement" return="boolean">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        SELECT count(*) as exist
+        FROM m_offer_availability 
+      ]]>
+    </Sql>
+  </SqlMethod>
+  <SqlMethod name="insertAvailableDateTime" type="preparedStatement" return="rowcount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+      	INSERT INTO m_offer_availability(
+		m_offer_availability_id, ad_client_id, ad_org_id, 
+		isactive, created, createdby, updated, updatedby, 
+		m_offer_id, day, startingtime, endingtime)
+		VALUES (get_uuid(), ?, ?, 
+		'Y', now(), '100', now(), '100', 
+		?, ?, to_timestamp(to_char(?), to_char('DD-MM-YYYY HH24:MI:SS')), to_timestamp(to_char(?), to_char('DD-MM-YYYY HH24:MI:SS')))
+      ]]></Sql>
+      <Parameter name="adClientId"/>
+      <Parameter name="adOrgId"/> 
+      <Parameter name="mOfferId"/> 
+      <Parameter name="day"/>
+      <Parameter name="startingTime"/>
+      <Parameter name="endingTime"/>
+  </SqlMethod>
+  <SqlMethod name="setWeekAndWeekDaysAsEmpty" type="preparedStatement" return="rowcount">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+      	UPDATE m_offer SET monday = 'N', tuesday = 'N', wednesday = 'N', thursday = 'N', friday = 'N', saturday = 'N', sunday = 'N', allweekdays = 'Y',
+      	startingtime = null, startingtimemonday = null, startingtimetuesday = null, startingtimewednesday = null, 
+      	startingtimethursday = null, startingtimefriday = null, startingtimesaturday = null, startingtimesunday = null,
+      	endingtime = null, endingtimemonday = null, endingtimetuesday = null, endingtimewednesday = null, 
+      	endingtimethursday = null, endingtimefriday = null, endingtimesaturday = null, endingtimesunday = null
+      	WHERE m_offer_id = ?
+		
+      ]]></Sql>
+      <Parameter name="mOfferId"/> 
+  </SqlMethod>
+ </SqlClass>

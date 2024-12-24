@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION AD_SEQUENCE_DOCUMENTNO">
+    <function name="AD_SEQUENCE_DOCUMENTNO" type="VARCHAR">
+      <parameter name="p_sequence_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <parameter name="p_update_next" type="CHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+  * The contents of this file are subject to the Openbravo  Public  License
+  * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+  * Version 1.1  with a permitted attribution clause; you may not  use this
+  * file except in compliance with the License. You  may  obtain  a copy of
+  * the License at http://www.openbravo.com/legal/license.html
+  * Software distributed under the License  is  distributed  on  an "AS IS"
+  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  * License for the specific  language  governing  rights  and  limitations
+  * under the License.
+  * The Original Code is Openbravo ERP.
+  * The Initial Developer of the Original Code is Openbravo SLU
+  * All portions are Copyright (C) 2024 Openbravo SLU
+  * All Rights Reserved.
+  * Contributor(s): Openbravo SLU
+  * Title: Get the next DocumentNo of Sequence
+  * Description:  This is the preferred way to get the documentNo in PL/SQL
+  * This is an equivalent implementation of SequenceUtil class done in
+  * Java, which is preferred way to get documentNo when working in Java.
+************************************************************************/
+  v_NextNo AD_SEQUENCE.CurrentNext%TYPE;
+  v_Prefix AD_SEQUENCE.PREFIX%TYPE;
+  v_Suffix AD_SEQUENCE.SUFFIX%TYPE;
+  v_Calculation_Method AD_SEQUENCE.CALCULATION_METHOD%TYPE;
+  v_Control_Digit AD_SEQUENCE.CONTROL_DIGIT%TYPE;
+  v_Sequence_Number_Length AD_SEQUENCE.SEQUENCE_NUMBER_LENGTH%TYPE;
+  v_Sequence_Length AD_SEQUENCE.SEQUENCE_LENGTH%TYPE;
+  v_Base_Sequence_ID AD_SEQUENCE.BASE_SEQUENCE_ID%TYPE;
+  v_documentNo VARCHAR2(60);
+
+BEGIN
+  IF(p_Sequence_ID IS NULL) THEN -- No Sequence Number
+    RETURN NULL;
+  END IF;
+
+  IF p_Update_Next='Y' THEN
+    UPDATE AD_Sequence
+      SET CurrentNext=CurrentNext + IncrementNo
+    WHERE AD_Sequence_ID=p_Sequence_ID;
+  END IF;
+
+  SELECT s.CurrentNext - (CASE WHEN p_Update_Next='Y' THEN IncrementNo ELSE 0 END), s.Prefix, s.Suffix,
+       s.Calculation_Method, s.Control_Digit, s.Sequence_Number_Length, s.Sequence_Length, s.Base_Sequence_ID
+  INTO v_NextNo, v_Prefix, v_Suffix,
+     v_Calculation_Method, v_Control_Digit, v_Sequence_Number_Length, v_Sequence_Length, v_Base_Sequence_ID
+  FROM AD_Sequence s
+  WHERE s.AD_Sequence_ID = p_Sequence_ID
+    AND s.IsActive='Y';
+
+  IF (v_Calculation_Method = 'A') THEN
+    v_documentNo:=v_NextNo;
+  ELSIF (v_Calculation_Method = 'S') THEN
+    -- Compute sequence based on base sequence defined in Sequence
+    v_documentNo:= AD_SEQUENCE_DOCUMENTNO(v_Base_Sequence_ID, p_update_next);
+  ELSIF (v_Calculation_Method = 'N') THEN
+    RAISE_APPLICATION_ERROR(-20000,'@CalculationMethodNotSupported@' || v_Calculation_Method || '@DeprecatedCalculationMethod@');
+  ELSE
+    RAISE_APPLICATION_ERROR(-20000,'@CalculationMethodNotSupported@' || v_Calculation_Method);
+  END IF;
+
+  -- Add leading zeros to the computed sequence if the sequence number length is fix length
+  -- and computed sequence length is less than specified sequence length
+  IF (v_Sequence_Number_Length = 'F' AND LENGTH(v_documentNo) < v_Sequence_Length) THEN
+    v_documentNo:=lpad(v_documentNo::text, v_Sequence_Length::integer, '0'::text);
+  END IF;
+
+  v_documentNo:=COALESCE(v_Prefix, '') || v_documentNo || COALESCE(v_Suffix, '');
+
+  --Compute Control Digit based on Module 10 Algorithm
+  IF (v_Control_Digit = 'M10') THEN
+    v_documentNo:=v_documentNo||AD_SEQUENCE_MOD10CONTROLDIGIT(v_documentNo);
+  END IF;
+
+  RETURN v_documentNo;
+
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+  RAISE_APPLICATION_ERROR(-20000, '@ComputingSequenceFailed@') ;
+END AD_SEQUENCE_DOCUMENTNO
+]]></body>
+    </function>
+  </database>

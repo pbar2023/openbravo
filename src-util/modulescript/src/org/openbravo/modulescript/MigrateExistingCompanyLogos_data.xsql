@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ *************************************************************************
+ * The contents of this file are subject to the Openbravo  Public  License
+ * Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+ * Version 1.1  with a permitted attribution clause; you may not  use this
+ * file except in compliance with the License. You  may  obtain  a copy of
+ * the License at http://www.openbravo.com/legal/license.html
+ * Software distributed under the License  is  distributed  on  an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific  language  governing  rights  and  limitations
+ * under the License.
+ * The Original Code is Openbravo ERP.
+ * The Initial Developer of the Original Code is Openbravo SLU
+ * All portions are Copyright (C) 2023 Openbravo SLU
+ * All Rights Reserved.
+ * Contributor(s):  ______________________________________.
+ ************************************************************************
+-->
+<SqlClass name="MigrateExistingCompanyLogosData" package="org.openbravo.modulescript">
+    <SqlClassComment></SqlClassComment>
+    <SqlMethod name="selectVectorialCompanyLogoInSystemInfo" type="preparedStatement" return="String">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+        SELECT ad_image_id
+        FROM ad_image
+        WHERE UPPER(mimetype) LIKE UPPER('%svg+xml%') AND
+        (ad_image_id IN (SELECT your_company_big_image FROM ad_system_info)
+        OR ad_image_id IN (SELECT your_company_login_image FROM ad_system_info)
+        OR ad_image_id IN (SELECT your_company_menu_image FROM ad_system_info))
+        ]]>
+        </Sql>
+    </SqlMethod>
+    <SqlMethod name="selectVectorialCompanyLogoInClientInfo" type="preparedStatement" return="String">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+        SELECT ad_image_id
+        FROM ad_image
+        WHERE UPPER(mimetype) LIKE UPPER('%svg+xml%') AND
+        (ad_image_id IN (SELECT your_company_big_image from ad_clientinfo where ad_client_id = ?)
+        OR ad_image_id IN (SELECT your_company_menu_image from ad_clientinfo where ad_client_id = ?))
+        ]]>
+        </Sql>
+        <Parameter name="adClientId"/>
+        <Parameter name="adClientId"/>
+    </SqlMethod>
+    <SqlMethod name="selectCompanyLogosInSystemInfoOrderedBySize" type="preparedStatement" return="multiple">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+        SELECT ad_image_id
+        FROM ad_image
+        WHERE ad_image_id IN (SELECT your_company_big_image FROM ad_system_info)
+        OR ad_image_id IN (SELECT your_company_login_image FROM ad_system_info)
+        OR ad_image_id IN (SELECT your_company_menu_image FROM ad_system_info)
+        ORDER BY height DESC
+        ]]>
+        </Sql>
+    </SqlMethod>
+    <SqlMethod name="selectLogosInClientInfoOrderedBySize" type="preparedStatement" return="multiple">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+        SELECT ad_image_id
+        FROM ad_image
+        WHERE ad_image_id IN (SELECT your_company_big_image from ad_clientinfo where ad_client_id = ?)
+           OR ad_image_id IN (SELECT your_company_menu_image from ad_clientinfo where ad_client_id = ?)
+        ORDER BY height DESC
+        ]]>
+        </Sql>
+        <Parameter name="adClientId"/>
+        <Parameter name="adClientId"/>
+    </SqlMethod>
+    <SqlMethod name="updateLogosInSystemInfo" type="preparedStatement" return="rowcount">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+          UPDATE ad_system_info SET company_logo = ?, company_logo_for_docs = ?
+        ]]>
+        </Sql>
+        <Parameter name="companyLogoId"/>
+        <Parameter name="logoForDocsId"/>
+    </SqlMethod>
+    <SqlMethod name="updateLogosInClientInfo" type="preparedStatement" return="rowcount">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+          UPDATE ad_clientinfo SET company_logo = ?, company_logo_for_docs = ?
+          WHERE ad_client_id = ?
+        ]]>
+        </Sql>
+        <Parameter name="companyLogoId"/>
+        <Parameter name="logoForDocsId"/>
+        <Parameter name="adClientId"/>
+    </SqlMethod>
+    <SqlMethod name="updateLogosInOrgInfo" type="preparedStatement" return="rowcount">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+          UPDATE ad_orginfo SET company_logo_for_docs = ?
+          WHERE ad_org_id = ?
+        ]]>
+        </Sql>
+        <Parameter name="logoForDocsId"/>
+        <Parameter name="adOrgId"/>
+    </SqlMethod>
+    <SqlMethod name="clearOldLogosInSystem" type="preparedStatement" return="rowcount">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+          UPDATE ad_system_info SET
+            your_company_document_image = null,
+            your_company_login_image = null,
+            your_company_big_image = null,
+            your_company_menu_image = null
+        ]]>
+        </Sql>
+    </SqlMethod>
+    <SqlMethod name="clearOldLogosInClient" type="preparedStatement" return="rowcount">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+          UPDATE ad_clientinfo SET
+            your_company_document_image = null,
+            your_company_big_image = null,
+            your_company_menu_image = null
+        ]]>
+        </Sql>
+    </SqlMethod>
+    <SqlMethod name="clearOldLogosInOrganization" type="preparedStatement" return="rowcount">
+        <SqlMethodComment></SqlMethodComment>
+        <Sql>
+            <![CDATA[
+          UPDATE ad_orginfo SET your_company_document_image = null
+        ]]>
+        </Sql>
+    </SqlMethod>
+</SqlClass>

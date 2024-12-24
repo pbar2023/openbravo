@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_EXTERNAL_SYSTEM_HTTP">
+    <table name="C_EXTERNAL_SYSTEM_HTTP" primaryKey="C_EXT_SYSTEM_HTTP_KEY">
+      <column name="C_EXTERNAL_SYSTEM_HTTP_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_EXTERNAL_SYSTEM_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="URL" primaryKey="false" required="true" type="VARCHAR" size="1000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AUTHORIZATION_TYPE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="USERNAME" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PASSWORD" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="REQUEST_METHOD" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[POST]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="TIMEOUT" primaryKey="false" required="true" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default><![CDATA[10]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="OAUTH2_CLIENT_IDENTIFIER" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="OAUTH2_CLIENT_SECRET" primaryKey="false" required="false" type="VARCHAR" size="255" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="OAUTH2_AUTH_SERVER_URL" primaryKey="false" required="false" type="VARCHAR" size="1000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="C_EXT_SYSTEM_HTTP_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_EXT_SYSTEM_HTTP_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTERNAL_SYSTEM" name="C_EXT_SYSTEM_HTTP_EXT_SYSTEM">
+        <reference local="C_EXTERNAL_SYSTEM_ID" foreign="C_EXTERNAL_SYSTEM_ID"/>
+      </foreign-key>
+      <index name="C_EXT_SYS_HTTP_EXT_SYS" unique="false">
+        <index-column name="C_EXTERNAL_SYSTEM_ID"/>
+      </index>
+      <index name="C_EXT_SYS_HTTP_UNIQ_EXT_SYS" unique="true">
+        <index-column name="C_EXTERNAL_SYSTEM_ID"/>
+        <index-column name="ISACTIVE"/>
+        <whereClause><![CDATA[ISACTIVE='Y']]></whereClause>
+      </index>
+      <check name="C_EXT_HTTP_SYS_MIN_TIMEOUT"><![CDATA[TIMEOUT > 0]]></check>
+      <check name="C_EXT_HTTP_SYSTEM_ACTIVE_CHK"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="C_EXT_HTTP_SYSTEM_BASIC_AUTH"><![CDATA[AUTHORIZATION_TYPE <> 'BASIC' OR USERNAME IS NOT NULL AND PASSWORD IS NOT NULL]]></check>
+      <check name="C_EXT_HTTP_SYSTEM_OAUTH2"><![CDATA[AUTHORIZATION_TYPE <> 'OAUTH2' OR OAUTH2_CLIENT_IDENTIFIER IS NOT NULL AND OAUTH2_CLIENT_SECRET IS NOT NULL AND OAUTH2_AUTH_SERVER_URL IS NOT NULL]]></check>
+    </table>
+  </database>

@@ -1,0 +1,91 @@
+{
+  "name": "openbravo",
+  "private": true,
+  "config": {
+    "preinstall": "modules/org.openbravo.client.kernel/build-scripts/pre-install",
+    "install": "modules/org.openbravo.client.kernel/build-scripts/install-deps",
+    "postinstall": "modules/org.openbravo.client.kernel/build-scripts/post-install",
+    "test": "modules/org.openbravo.client.kernel/test-scripts/run-tests"
+  },
+  "scripts": {
+    "preinstall": "$npm_package_config_preinstall",
+    "install": "node $npm_package_config_install",
+    "ci": "node $npm_package_config_install",
+    "postinstall": "$npm_package_config_postinstall",
+    "test": "$npm_package_config_test",
+    "coverage": "$npm_package_config_test --coverage",
+    "jslint": "eslint --max-warnings 0",
+    "jsformat": "prettier"
+  },
+  "repository": "https://gitlab.com/openbravo/product/openbravo",
+  "author": "Openbravo SLU",
+  "license": "SEE LICENSE IN legal/Openbravo_license.txt",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint-config-prettier": "~7.1.0",
+    "eslint-plugin-prettier": "~3.3.1",
+    "prettier": "~1.18.2",
+    "@babel/eslint-parser": "^7.18.9",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-plugin-transform-vite-meta-env": "^1.0.3",
+    "@testing-library/jest-dom": "^5.11.5",
+    "babel-jest": "^29.7.0",
+    "eslint": "~8.57.0",
+    "eslint-config-airbnb-base": "~14.2.1",
+    "eslint-plugin-import": "~2.29.1",
+    "eslint-plugin-jest": "~28.6.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "29.7",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-html-reporters": "~2.1.2",
+    "nyc-config-tsx": "^0.1.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/web-test/**/?(*.)+(test).[jt]s?(x)",
+      "**/web-jspack/**/?(*.)+(test).[jt]s?(x)"
+    ],
+    "collectCoverageFrom": [
+      "**/web-jspack/**/*.js?(x)",
+      "**/web/*/app/**/*.js",
+      "!**/build/**",
+      "!**/generated/**",
+      "!**/vendor/**",
+      "!**/stories/**",
+      "!**/__mock__/**",
+      "!**/__test__/**",
+      "!**/src-test/**",
+      "!**/ob-init.js",
+      "!**/index.js?(x)",
+      "!**/WebContent/**",
+      "!**/storybook/**",
+      "!**/.storybook/**",
+      "!**/public/**",
+      "!**/vite.config.js",
+      "!**/*-scripts/*.js",
+      "!**/config/**"
+    ],
+    "moduleNameMapper": {
+      "\\.(scss)$": "identity-obj-proxy",
+      "\\.(css)$": "identity-obj-proxy",
+      "\\.(svg)$": "<rootDir>/modules/org.openbravo.client.kernel/jsutils/fileMock.js",
+      "\\.(mp3)$": "identity-obj-proxy"
+    },
+    "coverageDirectory": "./test-reports/coverage",
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporters",
+        {
+          "publicPath": "./test-reports",
+          "filename": "jest-report.html"
+        }
+      ]
+    ]
+  }
+}

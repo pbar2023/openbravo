@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+  <database name="TABLE M_PRODUCT_MEDIA">
+    <table name="M_PRODUCT_MEDIA" primaryKey="M_PRODUCT_MEDIA_KEY">
+      <column name="M_PRODUCT_MEDIA_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="M_PRODUCT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="MEDIA_TYPE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SEQNO" primaryKey="false" required="true" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="URL" primaryKey="false" required="true" type="NVARCHAR" size="500" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="MEDIA_SIZE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PREVIEW_MEDIA_URL" primaryKey="false" required="false" type="NVARCHAR" size="500" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="AD_CLIENT" name="M_PRODUCT_MEDIA_AD_CLIENT">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="M_PRODUCT_MEDIA_AD_ORG">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="M_PRODUCT" name="M_PRODUCT_MEDIA_PRODUCT">
+        <reference local="M_PRODUCT_ID" foreign="M_PRODUCT_ID"/>
+      </foreign-key>
+      <unique name="M_PRODUCT_MEDIA_UNIQUE">
+        <unique-column name="M_PRODUCT_ID"/>
+        <unique-column name="MEDIA_SIZE"/>
+        <unique-column name="SEQNO"/>
+      </unique>
+      <check name="M_PRODUCT_MEDIA_ISACTIVE"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

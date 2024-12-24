@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+  <database name="FUNCTION M_REFINVENTORY_NESTED">
+    <function name="M_REFINVENTORY_NESTED" type="VARCHAR" volatility="STABLE">
+      <parameter name="p_refinventory_id" type="VARCHAR" mode="in">
+        <default/>
+      </parameter>
+      <body><![CDATA[/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2024 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+/*************************************************************************
+* Title: Return the nested referenced inventories for the given p_refinventory_id,
+* always including the p_refinventory_id.
+*
+* The output is aggregated in a comma-separated list of referenced inventories IDs 
+* because there is no other way supported by DBSM to return an array or a set of rows.
+*
+* This string can be used as the input parameter for an IN or ANY clauses 
+* like this: 
+*   IN (select unnest(STRING_TO_ARRAY
+*                       (m_refinventory_nested('B00BB79C17254910BF31B29CCEFB2DCC'), ',')
+*                     )
+*      )
+*
+* For HQL queries a similar approach can be used. Example:
+*   e.referencedInventory.id = ANY(select unnest(m_refinventory_nested(x.id)) from ...)
+* Note that the unnest function is registered in Hibernate like:
+*   "unnest(string_to_array(?1, ','))"
+************************************************************************/
+
+v_refinventory_id VARCHAR;
+
+BEGIN
+ WITH RECURSIVE riTree (m_refinventory_id, parent_refinventory_id, 
+                        level) AS
+ (select m_refinventory_id, parent_refinventory_id,
+         1 as level
+  from m_refinventory
+  where m_refinventory_id = p_refinventory_id
+  union all
+  select ri.m_refinventory_id, ri.parent_refinventory_id,
+         ript.level + 1
+  from riTree ript
+  join m_refinventory ri on (ri.parent_refinventory_id = ript.m_refinventory_id)
+  where ri.parent_refinventory_id is not null
+ )
+ select string_agg(m_refinventory_id, ',')
+ into v_refinventory_id
+ from riTree;
+
+ RETURN v_refinventory_id;
+END M_REFINVENTORY_NESTED
+]]></body>
+    </function>
+  </database>

@@ -1,0 +1,331 @@
+<?xml version="1.0"?>
+  <database name="TABLE C_EXTBP_CONFIG_PROPERTY">
+    <table name="C_EXTBP_CONFIG_PROPERTY" primaryKey="C_EXTBP_CONFIG_PROP_KEY">
+      <column name="C_EXTBP_CONFIG_PROPERTY_ID" primaryKey="true" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_CLIENT_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_ORG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISACTIVE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATED" primaryKey="false" required="true" type="TIMESTAMP" size="7" autoIncrement="false">
+        <default><![CDATA[SYSDATE]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="UPDATEDBY" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="C_EXTBP_CONFIG_ID" primaryKey="false" required="true" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="APIKEY" primaryKey="false" required="true" type="NVARCHAR" size="200" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_MESSAGE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="AD_REFERENCE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISIDENTIFIER" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="IDENTIFIER_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDISPLAYEDINDETAIL" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="DETAIL_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDISPLAYEDINLIST" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="LIST_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISEDITABLE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISKEY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SECTIONMESSAGE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISMANDATORY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISTRANSLATABLE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[Y]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="TEXT" primaryKey="false" required="false" type="NVARCHAR" size="2000" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISCATEGORYKEY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CATEGORYKEY_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDEFAULTEMAIL" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="DETAIL_COLSPAN" primaryKey="false" required="false" type="DECIMAL" size="1,0" autoIncrement="false">
+        <default><![CDATA[1]]></default>
+        <onCreateDefault><![CDATA[1]]></onCreateDefault>
+      </column>
+      <column name="LIST_COLSPAN" primaryKey="false" required="false" type="DECIMAL" size="1,0" autoIncrement="false">
+        <default><![CDATA[1]]></default>
+        <onCreateDefault><![CDATA[1]]></onCreateDefault>
+      </column>
+      <column name="ISBIRTHDAYDATE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="ISDISPLAYEDINCREATE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDISPLAYEDINEDIT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATE_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="EDIT_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SECTIONMESSAGECREATE_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SECTIONMESSAGEEDIT_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="CREATE_COLSPAN" primaryKey="false" required="false" type="DECIMAL" size="1,0" autoIncrement="false">
+        <default><![CDATA[1]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="EDIT_COLSPAN" primaryKey="false" required="false" type="DECIMAL" size="1,0" autoIncrement="false">
+        <default><![CDATA[1]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDEFAULTPHONE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISADDRESSPROPERTY" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="ISDISPLAYEDINCUSTOMERSWINDOW" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CUSTOMERSWINDOW_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISEMAILMARKETINGCONSENT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="IDENTIFIERSCANNINGACTION" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="CRMBUSINESSPROPERTY" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="ISMANDATORY_CREATE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="ISMANDATORY_EDIT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="ISEDITABLE_CREATE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="ISEDITABLE_EDIT" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="ISUNIQUE" primaryKey="false" required="true" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault><![CDATA['N']]></onCreateDefault>
+      </column>
+      <column name="C_EXTBP_CONFIG_FILTER_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="VALIDATION" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[no]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="VALIDATIONTYPE" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[empty]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SELECTORNOTIFICATION" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[no]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="SELECTORNOTIF_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="HEADERNOTIFICATION" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[no]]></default>
+        <onCreateDefault/>
+      </column>
+      <column name="HEADERNOTIF_SEQNO" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="VALIDATIONREGEXP" primaryKey="false" required="false" type="VARCHAR" size="60" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SUGGESTIONS" primaryKey="false" required="true" type="VARCHAR" size="60" autoIncrement="false">
+        <default><![CDATA[NO_SUGGEST]]></default>
+        <onCreateDefault><![CDATA['NO_SUGGEST']]></onCreateDefault>
+      </column>
+      <column name="SUGGESTIONS_EXT_SYSTEM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="SUGGESTIONS_MIN_CHARS" primaryKey="false" required="false" type="DECIMAL" autoIncrement="false">
+        <default><![CDATA[3]]></default>
+        <onCreateDefault><![CDATA[3]]></onCreateDefault>
+      </column>
+      <column name="VALIDATION_EXT_SYSTEM_ID" primaryKey="false" required="false" type="VARCHAR" size="32" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="PROPMAXLENGTH" primaryKey="false" required="false" type="DECIMAL" size="10,0" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+      <column name="OBFUS_APP_MODES" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default><![CDATA[N]]></default>
+        <onCreateDefault/>
+      </column>
+      <foreign-key foreignTable="C_EXTBP_CONFIG_FILTER" name="C_EXTBPCONFPROP_CFGFILTER_FK">
+        <reference local="C_EXTBP_CONFIG_FILTER_ID" foreign="C_EXTBP_CONFIG_FILTER_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_CLIENT" name="C_EXTBPCONFPROP_CLIENT_FK">
+        <reference local="AD_CLIENT_ID" foreign="AD_CLIENT_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTBP_CONFIG" name="C_EXTBPCONFPROP_CONFIG_FK">
+        <reference local="C_EXTBP_CONFIG_ID" foreign="C_EXTBP_CONFIG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_MESSAGE" name="C_EXTBPCONFPROP_MESSAGE_FK">
+        <reference local="AD_MESSAGE_ID" foreign="AD_MESSAGE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_ORG" name="C_EXTBPCONFPROP_ORG_FK">
+        <reference local="AD_ORG_ID" foreign="AD_ORG_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_MESSAGE" name="C_EXTBPCONFPROP_SECTCRE_FK">
+        <reference local="SECTIONMESSAGEEDIT_ID" foreign="AD_MESSAGE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_MESSAGE" name="C_EXTBPCONFPROP_SECTEDI_FK">
+        <reference local="SECTIONMESSAGECREATE_ID" foreign="AD_MESSAGE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="AD_MESSAGE" name="C_EXTBPCONFPROP_SECTION_FK">
+        <reference local="SECTIONMESSAGE_ID" foreign="AD_MESSAGE_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTERNAL_SYSTEM" name="C_EXTBPCP_SUGG_EXTSYSTEM_FK">
+        <reference local="SUGGESTIONS_EXT_SYSTEM_ID" foreign="C_EXTERNAL_SYSTEM_ID"/>
+      </foreign-key>
+      <foreign-key foreignTable="C_EXTERNAL_SYSTEM" name="C_EXTBPCP_VALID_EXTSYSTEM_FK">
+        <reference local="VALIDATION_EXT_SYSTEM_ID" foreign="C_EXTERNAL_SYSTEM_ID"/>
+      </foreign-key>
+      <index name="C_EXTBPCONFPROP_CFGFILTER_FKI" unique="false">
+        <index-column name="C_EXTBP_CONFIG_PROPERTY_ID"/>
+      </index>
+      <index name="C_EXTBPCP_SUGG_EXTSYSTEM_FKI" unique="false">
+        <index-column name="SUGGESTIONS_EXT_SYSTEM_ID"/>
+      </index>
+      <index name="C_EXTBPCP_VALID_EXTSYSTEM_FKI" unique="false">
+        <index-column name="VALIDATION_EXT_SYSTEM_ID"/>
+      </index>
+      <unique name="C_EXTBPCONFPROP_APIKEY_UN">
+        <unique-column name="C_EXTBP_CONFIG_ID"/>
+        <unique-column name="APIKEY"/>
+        <unique-column name="ISADDRESSPROPERTY"/>
+      </unique>
+      <check name="C_BIRTHDAYDATE_CHK"><![CDATA[ISBIRTHDAYDATE IN ('Y', 'N')]]></check>
+      <check name="C_DEFAULTEMAIL_CHK"><![CDATA[ISDEFAULTEMAIL IN ('Y', 'N')]]></check>
+      <check name="C_DEFAULTPHONE_CHK"><![CDATA[ISDEFAULTPHONE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_ACTIVE_CH"><![CDATA[ISACTIVE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_CONSENT_CH"><![CDATA[ISEMAILMARKETINGCONSENT IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_CUSTW_CH"><![CDATA[ISDISPLAYEDINCUSTOMERSWINDOW IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_DISCRE_CH"><![CDATA[ISDISPLAYEDINEDIT IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_DISDET_CH"><![CDATA[ISDISPLAYEDINDETAIL IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_DISEDI_CH"><![CDATA[ISDISPLAYEDINCREATE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_DISLIST_CH"><![CDATA[ISDISPLAYEDINLIST IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_EDIT_CRE_CHK"><![CDATA[ISEDITABLE_CREATE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_EDIT_EDI_CHK"><![CDATA[ISEDITABLE_EDIT IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_EDITAB_CH"><![CDATA[ISEDITABLE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_IDENTIF_CH"><![CDATA[ISIDENTIFIER IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_ISADDR_CH"><![CDATA[ISADDRESSPROPERTY IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_ISKEY_CH"><![CDATA[ISKEY IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_ISTR_CH"><![CDATA[ISTRANSLATABLE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_MAND_CH"><![CDATA[ISMANDATORY IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_MAND_CRE_CHK"><![CDATA[ISMANDATORY_CREATE IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_MAND_EDI_CHK"><![CDATA[ISMANDATORY_EDIT IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_OBFUS_CHK"><![CDATA[OBFUS_APP_MODES IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCONFPROP_TRMSG_CH"><![CDATA[ISTRANSLATABLE = 'N' OR AD_MESSAGE_ID IS NOT NULL AND ISTRANSLATABLE = 'Y']]></check>
+      <check name="C_EXTBPCONFPROP_TXTMSG_CH"><![CDATA[TEXT IS NOT NULL OR ISTRANSLATABLE = 'Y']]></check>
+      <check name="C_EXTBPCP_IDTFRSCNACTION_CHK"><![CDATA[IDENTIFIERSCANNINGACTION IN ('Y', 'N')]]></check>
+      <check name="C_EXTBPCP_ISCATEGORYKEY_CH"><![CDATA[ISCATEGORYKEY IN ('Y', 'N')]]></check>
+      <check name="C_ISUNIQUE_CHK"><![CDATA[ISUNIQUE IN ('Y', 'N')]]></check>
+    </table>
+  </database>

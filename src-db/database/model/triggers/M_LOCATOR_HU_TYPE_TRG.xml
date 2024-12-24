@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+  <database name="TRIGGER M_LOCATOR_HU_TYPE_TRG">
+    <trigger name="M_LOCATOR_HU_TYPE_TRG" table="M_LOCATOR_HU_TYPE" fires="before" insert="true" update="true" delete="true" foreach="row">
+      <body><![CDATA[
+/*************************************************************************
+* The contents of this file are subject to the Openbravo  Public  License
+* Version  1.1  (the  "License"),  being   the  Mozilla   Public  License
+* Version 1.1  with a permitted attribution clause; you may not  use this
+* file except in compliance with the License. You  may  obtain  a copy of
+* the License at http://www.openbravo.com/legal/license.html
+* Software distributed under the License  is  distributed  on  an "AS IS"
+* basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+* License for the specific  language  governing  rights  and  limitations
+* under the License.
+* The Original Code is Openbravo ERP.
+* The Initial Developer of the Original Code is Openbravo SLU
+* All portions are Copyright (C) 2024 Openbravo SLU
+* All Rights Reserved.
+* Contributor(s):  ______________________________________.
+************************************************************************/
+v_locator_id M_LOCATOR.M_LOCATOR_ID%TYPE;
+v_count NUMBER:=0;
+BEGIN
+  IF AD_isTriggerEnabled()='N' THEN IF DELETING THEN RETURN OLD; ELSE RETURN NEW; END IF;
+  END IF;
+
+  IF (INSERTING) THEN
+    v_locator_id:=:NEW.M_LOCATOR_ID;
+  ELSE
+    v_locator_id:=:OLD.M_LOCATOR_ID;
+  END IF;
+
+  SELECT COUNT(*)
+    INTO v_count
+  FROM m_storage_detail
+  WHERE m_locator_id = v_locator_id
+    AND (COALESCE(qtyonhand,0) <> 0
+    OR COALESCE(qtyorderonhand, 0) <> 0
+    OR COALESCE(preqtyonhand, 0) <> 0
+    OR COALESCE(preqtyorderonhand, 0) <> 0);
+
+  IF (v_count <> '0') THEN
+    RAISE_APPLICATION_ERROR(-20000, '@NotEditableAllowStoringItemsHUType@');
+  END IF;
+
+  END M_LOCATOR_HU_TYPE_TRG
+]]></body>
+    </trigger>
+  </database>
